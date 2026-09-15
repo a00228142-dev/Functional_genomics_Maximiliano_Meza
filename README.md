@@ -36,10 +36,10 @@ The following files are requires in the working directory and are not distribute
 
 ## Execution order
 The scripts are numbered in the order they should be run. Each script assumes the working directory contains the input files listed above:
-1. 01_PCA.R - Loads the full count matrix (both cultivars), filters low-expression genes per cultivar x treatment group, applies a variance-stabilizing transformation, and performs PCA to explore sample clustering prior to splitting the analysis by cultivar.
-2. 02_DESeq2_enrichment_network_modules.R - Main pipeline: per-cultivar differential expression (DESeq2), heatmaps, coexpression networks and Louvain module detection, Venn diagram of shared/exclusive DEGs, and hypergeometric functional enrichment (clusterProfiler) with GO annotation.
-3. 03_CAMERA.R - Complementary gene-set enrichment via CAMERA (limma/voom), evaluating the full expression ranking without a fold-change cutoff.
-4. 04_MEME_promoter_motifs.R - Extracts promoter sequences (1000 bp upstream / 200 bp downstream of TSS) for a set of genes of interest, runs de novo motif discovery with MEME, and compares the resulting motifs against JASPAR_plants via TomTom
+1. **01_PCA.R** - Loads the full count matrix (both cultivars), filters low-expression genes per cultivar x treatment group, applies a variance-stabilizing transformation, and performs PCA to explore sample clustering prior to splitting the analysis by cultivar.
+2. **02_DESeq2_enrichment_network_modules.R** - Main pipeline: per-cultivar differential expression (DESeq2), heatmaps, coexpression networks and Louvain module detection, Venn diagram of shared/exclusive DEGs, and hypergeometric functional enrichment (clusterProfiler) with GO annotation.
+3. **03_CAMERA.R** - Complementary gene-set enrichment via CAMERA (limma/voom), evaluating the full expression ranking without a fold-change cutoff.
+4. **04_MEME_promoter_motifs.R** - Extracts promoter sequences (1000 bp upstream / 200 bp downstream of TSS) for a set of genes of interest, runs de novo motif discovery with MEME, and compares the resulting motifs against JASPAR_plants via TomTom
 
 ## Key parameters and thresholds
 | Parameter | Value | Used in |
