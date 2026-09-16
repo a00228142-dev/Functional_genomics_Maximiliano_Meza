@@ -10,11 +10,9 @@ coffea-xylella-transcriptomics/
     └── R codes/
         ├── 01_PCA.R
         ├── 02_DESeq2_enrichment_network_modules.R
-        ├── 03_CAMERA.R
-        ├── 04_MEME_promoter_motifs.R
-        └── 05_enriched_categories_direction_specific.R
-
-
+        ├── 03_enriched_categories_direction_specific.R
+        └── 04_MEME_promoter_motifs.R
+        
 ## Requirements
 •R (>=4.2).
 
@@ -40,8 +38,8 @@ The following files are requires in the working directory and are not distribute
 The scripts are numbered in the order they should be run. Each script assumes the working directory contains the input files listed above:
 1. **01_PCA.R** - Loads the full count matrix (both cultivars), filters low-expression genes per cultivar x treatment group, applies a variance-stabilizing transformation, and performs PCA to explore sample clustering prior to splitting the analysis by cultivar.
 2. **02_DESeq2_enrichment_network_modules.R** - Main pipeline: per-cultivar differential expression (DESeq2), heatmaps, coexpression networks and Louvain module detection, Venn diagram of shared/exclusive DEGs, and hypergeometric functional enrichment (clusterProfiler) with GO annotation.
-3. **03_enriched_categories_direction_specific.R** - Self-contained, complementary enrichment analysis that separates genes by direction of change (upregulated vs. downregulated) restricted to genes with a large fold-change magnitude (padj <0.05, |log2FC| > 1). This script independently re-runs its own DESeq2 pipeline using this stricter significance definition, which is consistently applied across its coexpression network, module detection, and direction-specific enrichment steps. It also includes a CAMERA gene-set enrichment analysis (limma/voom), evaluating the full expression ranking.
-4. **04_MEME_promoter_motifs.R** - Extracts promoter sequences (1000 bp upstream / 200 bp downstream of TSS) for a set of genes of interest, runs de novo motif discovery with MEME, and compares the resulting motifs against JASPAR_plants via TomTom
+3. **03_enriched_categories_direction_specific.R** - Self-contained, complementary enrichment analysis that separates genes by direction of change (upregulated vs. downregulated) restricted to genes with a large fold-change magnitude (padj <0.05, |log2FC| > 1). This script independently re-runs its own DESeq2 pipeline using this stricter significance definition, which is consistently applied across its coexpression network, module detection, and direction-specific enrichment steps. It also includes a CAMERA gene-set enrichment analysis (limma/voom), evaluating the full expression ranking. It does not generate a heatmap, coexpression network, or Venn diagram. 
+4. **04_MEME_promoter_motifs.R** - Extracts promoter sequences (1000 bp upstream / 200 bp downstream of TSS) for a set of genes of interest, runs de novo motif discovery with MEME, and compares the resulting motifs against JASPAR_plants via TomTom. **NOTE** : Before running this script, update the "genome_fasta" and "annotation_gff# variables (and the working directory set by "setwd()" to match the exact files names and location in your computer. 
    
  
 ## Key parameters and thresholds
