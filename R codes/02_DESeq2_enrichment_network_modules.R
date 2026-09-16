@@ -366,7 +366,6 @@ sum(sig_no_fc_CR95$p.adjust <0.05, na.rm = TRUE)
 
 
 #TOP CATEGORIES HYPERGEOMETRIC ANALYSIS
-hyper_results <- list()
 for (cv in cultivars) {
   cat("\n === Breakdown", cv, "===\n")
   
