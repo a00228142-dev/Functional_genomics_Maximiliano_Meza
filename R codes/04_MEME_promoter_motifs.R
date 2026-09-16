@@ -3,7 +3,9 @@
 # ============================================================
 
 # --- 1. Required libraries ---
-# BiocManager::install(c("rtracklayer", "Biostrings", "memes", "universalmotif"))
+if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
+BiocManager::install(c("rtracklayer", "Biostrings", "memes", "universalmotif", "Rsamtools"),
+                     update = FALSE, ask = FALSE, force = TRUE)
 
 library(rtracklayer)
 library(Biostrings)
@@ -114,9 +116,9 @@ resultados_tomtom <- runTomTom(
 
 print(resultados_tomtom)
 
-library(dplyr)
-install.packages("dplyr")
-library(dplyr)
+if (!requireNamespace("dplyr", quietly = TRUE)) install.packages("dplyr")
+   library(dplyr)
+
 # View the top matches with their similarity score
 resultados_tomtom %>%
   select(name, best_match_name, best_match_altname, best_match_pval, best_match_qval)
