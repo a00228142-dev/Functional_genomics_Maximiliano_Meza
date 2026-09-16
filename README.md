@@ -6,12 +6,14 @@ Full methodological detail (thresholds, parameters, experimental design) is desc
 
 ## Repository structure
 coffea-xylella-transcriptomics/
-├── README.md
-└── R codes/
-    ├── 01_PCA.R
-    ├── 02_DESeq2_enrichment_network_modules.R
-    ├── 03_CAMERA.R
-    └── 04_MEME_promoter_motifs.R
+    ├── README.md
+    └── R codes/
+        ├── 01_PCA.R
+        ├── 02_DESeq2_enrichment_network_modules.R
+        ├── 03_CAMERA.R
+        ├── 04_MEME_promoter_motifs.R
+        └── 05_enriched_categories_direction_specific.R
+
 
 ## Requirements
 •R (>=4.2).
@@ -38,9 +40,10 @@ The following files are requires in the working directory and are not distribute
 The scripts are numbered in the order they should be run. Each script assumes the working directory contains the input files listed above:
 1. **01_PCA.R** - Loads the full count matrix (both cultivars), filters low-expression genes per cultivar x treatment group, applies a variance-stabilizing transformation, and performs PCA to explore sample clustering prior to splitting the analysis by cultivar.
 2. **02_DESeq2_enrichment_network_modules.R** - Main pipeline: per-cultivar differential expression (DESeq2), heatmaps, coexpression networks and Louvain module detection, Venn diagram of shared/exclusive DEGs, and hypergeometric functional enrichment (clusterProfiler) with GO annotation.
-3. **03_CAMERA.R** - Complementary gene-set enrichment via CAMERA (limma/voom), evaluating the full expression ranking without a fold-change cutoff.
+3. **03_enriched_categories_direction_specific.R** - Self-contained, complementary enrichment analysis that separates genes by direction of change (upregulated vs. downregulated) restricted to genes with a large fold-change magnitude (padj <0.05, |log2FC| > 1). This script independently re-runs its own DESeq2 pipeline using this stricter significance definition, which is consistently applied across its coexpression network, module detection, and direction-specific enrichment steps. It also includes a CAMERA gene-set enrichment analysis (limma/voom), evaluating the full expression ranking.
 4. **04_MEME_promoter_motifs.R** - Extracts promoter sequences (1000 bp upstream / 200 bp downstream of TSS) for a set of genes of interest, runs de novo motif discovery with MEME, and compares the resulting motifs against JASPAR_plants via TomTom
-
+   
+ 
 ## Key parameters and thresholds
 | Parameter | Value | Used in |
 |---|---|---|
@@ -49,7 +52,7 @@ The scripts are numbered in the order they should be run. Each script assumes th
 | Minimum gene set size | ≥ 5 genes | CAMERA |
 | Correlation (network edges) | \|r\| ≥ 0.8 | Coexpression network | 
 | Minimum module size | ≥ 3 genes | Module detection (Louvain) |
-| CAMERA significance (FDR) | <0.05 | CAMERA |
+| CAMERA significance (FDR) | <0.05 | Threshold used to report/count significant terms; the full ranked table of all tested GO terms is saved regardelss of this cutoff.|
 
 ## Outputs
 Each script writes its results (tables as .txt/.csv, figures as .pdf) to the working directory. No outputs/ folder is version-controlled in this repository; regenerate them by running the scripts against the input data described above. 
